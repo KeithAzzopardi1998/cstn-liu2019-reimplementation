@@ -1,0 +1,6 @@
+keras==2.1.4
+pandas==0.17.1
+tensorflow-gpu==1.14.0
+numpy==1.16.2
+pydot
+graphviz
