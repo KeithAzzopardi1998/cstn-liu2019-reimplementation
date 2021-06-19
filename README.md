@@ -3,7 +3,7 @@
 docker build -t demandmodeltrain:latest .
 docker run \
   --gpus=all \
-  --name liu_2019 \
+  --name dm_train \
   -p 7777:7777 \
   -p 6006:6006 \
   --volume ${PWD}:/data \

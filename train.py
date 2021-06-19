@@ -9,7 +9,6 @@ import math
 from datetime import datetime
 from keras.callbacks import EarlyStopping, ModelCheckpoint,TensorBoard,LearningRateScheduler,Callback
 
-import models
 from keras.optimizers import Adam, SGD
 from keras.utils import plot_model as plot
 from keras.utils import multi_gpu_model
@@ -195,7 +194,7 @@ if __name__ == '__main__':
         exit(1)
 
     os.makedirs(args.out_path)
-    train(lr=args.ls,
+    train(lr=args.lr,
             batch_size=args.batch_size,
             seq_len=args.seq_len,
             DEMODEL=DEMODEL,
