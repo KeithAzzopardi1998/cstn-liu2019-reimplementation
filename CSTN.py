@@ -300,16 +300,18 @@ def build_model(timestep, map_height, map_width, weather_dim, meta_dim):
         encoded = _concat([o_encoded, d_encoded])
         encoded = _all_embed(encoded)
 
-        w_encode = step_data[1]
-        w_encode = _fc_wm_1(w_encode)
-        w_encode = _fc_wm_2(w_encode)
-        w_encode = _fc_wm_3(w_encode)
-        w_encode = _wm_repeat(w_encode)
-        w_encode = _wm_permute(w_encode)
-        w_encode = _wm_reshape(w_encode)
+        if weather_dim > 0:
+            w_encode = step_data[1]
+            w_encode = _fc_wm_1(w_encode)
+            w_encode = _fc_wm_2(w_encode)
+            w_encode = _fc_wm_3(w_encode)
+            w_encode = _wm_repeat(w_encode)
+            w_encode = _wm_permute(w_encode)
+            w_encode = _wm_reshape(w_encode)
 
-        encoded = _odwm_concat([encoded, w_encode])
-        encoded = _odwm_embed(encoded)
+            encoded = _odwm_concat([encoded, w_encode])
+            encoded = _odwm_embed(encoded)
+        
         encoded = _odwm_reshape(encoded)
 
         od_encoded_seq.append(encoded)
