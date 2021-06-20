@@ -10,7 +10,7 @@ class Metrics():
         return K.mean(K.square(y_pred - y_true))
 
     def rmse(self,y_true, y_pred):
-        return mean_squared_error(y_true, y_pred) ** 0.5
+        return self.mean_squared_error(y_true, y_pred) ** 0.5
 
     def mape(self,y_true, y_pred):
         y_true = (y_true + 1) * self.odmax / 2.0
@@ -23,7 +23,7 @@ class Metrics():
     def o_rmse(self,y_true, y_pred):
         y_true = K.sum(y_true, axis=1)
         y_pred = K.sum(y_pred, axis=1)
-        return mean_squared_error(y_true, y_pred) ** 0.5
+        return self.mean_squared_error(y_true, y_pred) ** 0.5
 
     def o_mape(self,y_true, y_pred):
         y_true = (y_true + 1) * self.odmax / 2.0
