@@ -4,7 +4,7 @@ COPY requirements.txt /opt/requirements.txt
 RUN pip install -r /opt/requirements.txt
 
 RUN apt-get update
-RUN apt-get install -y git screen vim wget graphviz
+RUN apt-get install -y git screen vim wget
 
 RUN pip install jupyter_contrib_nbextensions
 RUN jupyter contrib nbextension install --sys-prefix

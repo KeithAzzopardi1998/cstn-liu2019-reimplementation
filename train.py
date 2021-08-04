@@ -3,8 +3,9 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import numpy as np
 import tensorflow as tf
-import cPickle as pickle
-import pandas as pd
+#import cPickle as pickle
+import pickle
+#import pandas as pd
 import math
 from datetime import datetime
 from keras.callbacks import EarlyStopping, ModelCheckpoint,TensorBoard,LearningRateScheduler,Callback
@@ -121,12 +122,12 @@ def train(lr, batch_size, seq_len, DEMODEL, dataset_path,num_days_test,path_mode
     print("--> TRAINING: finished training ... saving")
     model.save_weights(os.path.join(
         path_model, '{}.h5'.format(hyperparams_name)), overwrite=True)
-    train_model.load_weights(fname_param)
+    #train_model.load_weights(fname_param)
     model.save_weights(fname_param, overwrite=True)
     pickle.dump((history.history), open(os.path.join(
         path_model, '{}.history.pkl'.format(hyperparams_name)), 'wb'))
 
-    model.load_weights(fname_param)           
+    #model.load_weights(fname_param)           
 
     """********************************************************************************************"""
     """ Second, we train our model with step_decay learning rate                                   """
