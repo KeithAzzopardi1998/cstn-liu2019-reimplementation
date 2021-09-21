@@ -11,7 +11,7 @@ from datetime import datetime
 from keras.callbacks import EarlyStopping, ModelCheckpoint,TensorBoard,LearningRateScheduler,Callback
 
 from keras.optimizers import Adam, SGD
-from keras.utils import plot_model as plot
+#from keras.utils import plot_model as plot
 from keras.utils import multi_gpu_model
 
 from metrics import Metrics
@@ -88,7 +88,7 @@ def train(lr, batch_size, seq_len, DEMODEL, dataset_path,num_days_test,path_mode
     print("--------------------------------------------------")
 
     model = DEMODEL.build_model(**model_para)
-    plot(model, to_file=os.path.join(path_model,'networks.png'), show_shapes=True)
+    #plot(model, to_file=os.path.join(path_model,'networks.png'), show_shapes=True)
     model.summary()
     train_model = model
 
@@ -178,8 +178,8 @@ def train(lr, batch_size, seq_len, DEMODEL, dataset_path,num_days_test,path_mode
     print("--> TRAINING: done")
 
 if __name__ == '__main__':
-    os.environ["CUDA_VISIBLE_DEVICES"] = '0'
-
+    #os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('--lr', type=float, default=0.001, help='learing rate')
     parser.add_argument('--batch_size', type=int, default=32, help='batch size')
