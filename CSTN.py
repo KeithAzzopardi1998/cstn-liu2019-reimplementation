@@ -1,27 +1,26 @@
 from __future__ import print_function
-from keras.layers import (
+from tensorflow.keras.layers import (
     Input,
     Activation,
-    merge,
     Dense,
     Reshape,
     Concatenate,
     Multiply,
     Add
 )
-from keras.layers.convolutional import Convolution2D,SeparableConv2D, Conv2D, Conv3D
-from keras.layers.normalization import BatchNormalization
-from keras.models import Model
-from keras.optimizers import Adam
-from keras.utils.vis_utils import plot_model as plot
-from keras import backend as K
-from keras.layers import merge,ConvLSTM2D,Dot
-from keras.layers.core import *
-from keras.layers.recurrent import LSTM
-from keras.models import *
-from keras import regularizers
-from keras.layers import Wrapper
-from keras.engine import InputSpec
+from tensorflow.keras.layers import SeparableConv2D, Conv2D, Conv3D
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
+#from tensorflow.keras.utils.vis_utils import plot_model as plot
+from tensorflow.keras import backend as K
+from tensorflow.keras.layers import ConvLSTM2D,Dot, Lambda, RepeatVector, Permute
+#from tensorflow.keras.layers.core import *
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.models import *
+from tensorflow.keras import regularizers
+from tensorflow.keras.layers import Wrapper
+from tensorflow.keras.layers import InputSpec
 
 import tensorflow as tf
 
@@ -126,7 +125,7 @@ def gcc_block(block, H, W, inter_channel, feature_channel, output_channel):
     def embedding2d(block, embedd_id, channels):
         layer = str(block) + "-" + str(embedd_id)
         if layer not in gcc_block.gcc_layers.keys():
-            gcc_block.gcc_layers[layer] = Convolution2D(
+            gcc_block.gcc_layers[layer] = Conv2D(
                 filters=channels, kernel_size=(1,1), padding="same", \
                 name="NO."+str(block)+"-enbed2d-"+str(embedd_id), activation="relu")
         def f(input):
@@ -280,7 +279,7 @@ def build_model(timestep, map_height, map_width, weather_dim, meta_dim):
 
     # fusion among od and weather
     _odwm_concat = Concatenate(axis=1)
-    _odwm_embed = Convolution2D(filters=32, kernel_size=(1,1), padding="same", activation="relu", name="fusion_weather")
+    _odwm_embed = Conv2D(filters=32, kernel_size=(1,1), padding="same", activation="relu", name="fusion_weather")
     _odwm_reshape = Reshape((1, -1, map_height, map_width))
 
 
@@ -321,7 +320,7 @@ def build_model(timestep, map_height, map_width, weather_dim, meta_dim):
     # LSC modeling
     main_output = ConvLSTM2D(filters=32, kernel_size=(3,3), padding='same', return_sequences=False, name="convlstm_encoder")(od_encoded)
     # fusion after modeling
-    main_output = Convolution2D(filters=map_hw, kernel_size=(1,1), padding="same", activation="relu", name="regressor_first")(main_output)
+    main_output = Conv2D(filters=map_hw, kernel_size=(1,1), padding="same", activation="relu", name="regressor_first")(main_output)
 
 
     # GCC modeling

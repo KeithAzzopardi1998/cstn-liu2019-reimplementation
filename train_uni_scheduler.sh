@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=6
 #SBATCH --mem-per-cpu=24G
-#SBATCH --gres=gpu:turing:1
+#SBATCH --gres=gpu:ampere:1
 # email user with progress
 #SBATCH --mail-user=keith.azzopardi.16@um.edu.mt
 #SBATCH --mail-type=all

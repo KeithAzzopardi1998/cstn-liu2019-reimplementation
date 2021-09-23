@@ -5,9 +5,14 @@ TRAINING_DIR_GLOBAL="/opt/local/data/keith_azzopardi/demand_model_training"
 # repository inside the home directory.
 
 # setting model/training parameters
-MODEL_NAME="5pc_40x10"
-DATASET_PATH="./od_matrix_5pc_40x10_uint8.npy"
+#MODEL_NAME="5pc_40x10"
+#DATASET_PATH="./od_matrix_5pc_40x10_uint8.npy"
 
+MODEL_NAME="testing_tf2_100pc_10x3"
+DATASET_PATH="./od_matrix_100pc_10x3.npy"
+
+
+echo "Training model ${MODEL_NAME} using dataset ${DATASET_PATH}"
 # additional configuration parameters
 OUTPUT_PATH="${TRAINING_DIR_GLOBAL}/output/${MODEL_NAME}-$(date +'%F-%T')"
 DIR_VENV="${TRAINING_DIR_GLOBAL}/training_env"
@@ -28,7 +33,8 @@ fi
 
 echo "~~ STARTING MODEL TRAINING ~~"
 mkdir -p "${TRAINING_DIR_GLOBAL}/output"
-#export HDF5_DISABLE_VERSION_CHECK=1
+export HDF5_DISABLE_VERSION_CHECK=1
+export PYTHONUNBUFFERED=1
 python3 train.py --lr 0.001 \
                 --batch_size 16 \
                 --seq_len 5 \
