@@ -1,3 +1,7 @@
+# NOTE
+This is a re-implementation of https://github.com/liulingbo918/CSTN
+
+
 ## Creating Docker container
 ```bash
 docker build -t demandmodeltrain:latest .
